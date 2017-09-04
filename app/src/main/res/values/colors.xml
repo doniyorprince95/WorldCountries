@@ -8,4 +8,5 @@
     <color name="texColorSecondary">#011009</color>
     <color name="flagpost">#F7F7F7</color>
     <color name="infopost1">#0B831F</color>
+    <color name="dividercolor">#0099FF</color>
 </resources>

@@ -4,40 +4,30 @@ import android.app.SearchManager;
 import android.app.SearchableInfo;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.PictureDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.SearchView;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.view.animation.RotateAnimation;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ImageView;
+import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
-
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.annotation.GlideOption;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.load.model.StreamEncoder;
-
-import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.RequestOptions;
-import com.caverock.androidsvg.SVG;
+import com.android.vyke.worldcountries.about.About;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -54,16 +44,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-
-
 public class MainActivity extends AppCompatActivity {
 
+    public static final double APP_VER = 1.0;
     private final String exeUrlAll = "https://restcountries.eu/rest/v2/all";
     private ListView listView;
     private ProgressBar progressBar;
     private List<Countries> CountriesList = new ArrayList<>();
     private CustomAdapter adapter;
-    public static final int APP_VER = 1;
 
     public boolean isConnected() {
         ConnectivityManager getNetworkStatus = (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -85,23 +73,23 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         isConnected();
 
-
-
         listView = (ListView) findViewById(R.id.main_list);
         progressBar = (ProgressBar) findViewById(R.id.list_progress);
 
-
         // new GetInfo().execute("https://restcountries.eu/rest/v2/name/india?fullText=true");
-
 
         try {
             if (isConnected()) {
                 new GetInfo().execute(exeUrlAll);
-
+                //   AdRequest adRequest = new AdRequest.Builder().addTestDevice("860C5A531681CA9A3CA94D8936AC515F").build();
+                AdView mAdView = (AdView) findViewById(R.id.adView);
+                mAdView.setVisibility(View.INVISIBLE);
+                AdRequest adRequest = new AdRequest.Builder().addTestDevice(AdRequest.DEVICE_ID_EMULATOR).build();
+                mAdView.loadAd(adRequest);
+                mAdView.setVisibility(View.VISIBLE);
             } else {
                 Toast.makeText(MainActivity.this, " Oops! Your are off the Internet", Toast.LENGTH_LONG).show();
                 progressBar.setVisibility(View.GONE);
-
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -110,8 +98,10 @@ public class MainActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String sname;
                 try {
-                    String sname = adapter.getItem(position).getName();
+                    sname = adapter.getItem(position).getName();
+
                     if (sname != null) {
                         Intent intent = new Intent(MainActivity.this, WikiWeb.class);
                         intent.putExtra("Cname", sname);
@@ -123,26 +113,22 @@ public class MainActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
             }
+
+
         });
-
-
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
         getMenuInflater().inflate(R.menu.menu_items, menu);
 
+
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         SearchableInfo searchableInfo = searchManager.getSearchableInfo(getComponentName());
 
         SearchView searchView = (SearchView) MenuItemCompat.getActionView(menu.findItem(R.id.searchbtn));
-
-
-
-
-
-
         searchView.setSearchableInfo(searchableInfo);
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -152,43 +138,38 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public boolean onQueryTextChange(final String newText) {
+            public boolean onQueryTextChange(String newText) {
                 try {
 
-                        //   adapter.setFilter(newText);
-                        final CustomAdapter newAdapter = adapter.setFilter(newText);
-                        listView.setAdapter(newAdapter);
-                        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                            @Override
-                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    //  adapter.setFilter(newText);
+                    CustomAdapter newAdapter = adapter.setFilter(newText);
+                    listView.setAdapter(newAdapter);
+             /*       listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                                try {
-                                    String sname = newAdapter.getItem(position).getName();
-                                    if (sname != null) {
-                                        Intent intent = new Intent(MainActivity.this, WikiWeb.class);
-                                        intent.putExtra("Cname", sname);
-                                        startActivity(intent);
-                                    } else {
-                                        Toast.makeText(MainActivity.this, "Cannot Get the Name", Toast.LENGTH_SHORT).show();
-                                    }
-                                } catch (Exception e) {
-                                    e.printStackTrace();
+                            try {
+                                String sname = newAdapter.getItem(position).getName();
+                                if (sname != null) {
+                                    Intent intent = new Intent(MainActivity.this, WikiWeb.class);
+                                    intent.putExtra("Cname", sname);
+                                    startActivity(intent);
+                                } else {
+                                    Toast.makeText(MainActivity.this, "Cannot Get the Name", Toast.LENGTH_SHORT).show();
                                 }
+                            } catch (Exception e) {
+                                e.printStackTrace();
                             }
-                        });
-
+                        }
+                    });
+*/
                     return true;
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
                 return false;
             }
-
-
         });
-
-        // Refresh Button
-
 
         return true;
     }
@@ -196,10 +177,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-
         switch (item.getItemId()) {
             case R.id.refresh:
                 if (isConnected()) {
+                    new GetInfo().execute(exeUrlAll);
 
 
                 } else {
@@ -207,15 +188,33 @@ public class MainActivity extends AppCompatActivity {
                     finish();
                 }
                 return true;
-
-
+            case R.id.about:
+                Intent intent = new Intent(this, About.class);
+                startActivity(intent);
+                return true;
         }
         return false;
         // return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        finish();
 
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        listView.setAdapter(adapter);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
 
     private class GetInfo extends AsyncTask<String, String, List<Countries>> {
 
@@ -241,7 +240,6 @@ public class MainActivity extends AppCompatActivity {
                     while ((Line = bufferedReader.readLine()) != null) {
                         builder.append(Line);
                     }
-
                     Log.e("JSON", "  DATA is Received");
                 } else {
                     return null;
@@ -269,10 +267,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         private List<Countries> jsonParsing(String jsonData) {
-
-
             try {
-
                 JSONArray jsonArray = new JSONArray(jsonData);
                 for (int j = 0; j < jsonArray.length(); j++) {
                     Countries cts = new Countries();
@@ -286,14 +281,13 @@ public class MainActivity extends AppCompatActivity {
                     cts.setDemonym(jsonArray.getJSONObject(j).getString("demonym"));
                     cts.setNativeName(jsonArray.getJSONObject(j).getString("nativeName"));
                     cts.setPopulation(jsonArray.getJSONObject(j).getString("population"));
-                     cts.setFlag(jsonArray.getJSONObject(j).getString("flag"));
-                  //  cts.setFlag(jsonArray.getJSONObject(j).getString("name"));
+                    cts.setFlag(jsonArray.getJSONObject(j).getString("flag"));
+                    //  cts.setFlag(jsonArray.getJSONObject(j).getString("name"));
                     // Get time Zone
                     List<String> timeZone = new ArrayList<>();
                     for (int i = 0; i < jsonArray.getJSONObject(j).getJSONArray("timezones").length(); i++) {
                         String S = jsonArray.getJSONObject(j).getJSONArray("timezones").getString(i);
                         timeZone.add(S);
-
                     }
                     cts.setTimezones(timeZone);
                     // for border
@@ -301,7 +295,6 @@ public class MainActivity extends AppCompatActivity {
                     for (int i = 0; i < jsonArray.getJSONObject(j).getJSONArray("borders").length(); i++) {
                         String S = jsonArray.getJSONObject(j).getJSONArray("borders").getString(i);
                         Borders.add(S);
-
                     }
                     cts.setBorders(Borders);
                     // Get Currency
@@ -354,7 +347,6 @@ public class MainActivity extends AppCompatActivity {
         protected void onPreExecute() {
             super.onPreExecute();
             listView.setVisibility(View.GONE);
-
             progressBar.setVisibility(View.VISIBLE);
         }
 
@@ -362,21 +354,14 @@ public class MainActivity extends AppCompatActivity {
         public void onPostExecute(List<Countries> CL) {
             super.onPostExecute(CL);
             adapter = new CustomAdapter(getApplicationContext(), R.layout.row, CL);
-
-            listView.setAdapter(adapter);
-            progressBar.setVisibility(View.GONE);
-            listView.setVisibility(View.VISIBLE);
-
-
+            try {
+                listView.setAdapter(adapter);
+                progressBar.setVisibility(View.GONE);
+                listView.setVisibility(View.VISIBLE);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        finish();
-
-
     }
 
 

@@ -21,6 +21,7 @@ public class WikiWeb extends AppCompatActivity {
         String webadd = "https://en.m.wikipedia.org/wiki/" + Item;
 
         webView = (WebView) findViewById(R.id.wikiweb);
+        Toast.makeText(this, "Wikipedia Loading", Toast.LENGTH_SHORT).show();
         try {
             WebSettings webSettings = webView.getSettings();
             webSettings.setJavaScriptEnabled(true);
@@ -32,7 +33,6 @@ public class WikiWeb extends AppCompatActivity {
             Toast.makeText(WikiWeb.this, "Cannot connect to Wiki", Toast.LENGTH_LONG).show();
             e.printStackTrace();
         }
-
     }
 
     @Override

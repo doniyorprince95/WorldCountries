@@ -1,32 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-    <LinearLayout
+<RelativeLayout
 
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:context="com.android.vyke.worldcountries.MainActivity">
 
+    android:background="@android:color/white"
+    tools:context="com.android.vyke.worldcountries.MainActivity">
     <ListView
         android:id="@+id/main_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
+        android:layout_margin="4dp"
+        android:animationCache="false"
         android:background="@android:color/white"
+        android:descendantFocusability="beforeDescendants"
+        android:divider="@color/dividercolor"
+        android:dividerHeight="5dp"
+        android:focusable="true"
+        android:footerDividersEnabled="true"
         android:scrollbars="vertical"
-        android:smoothScrollbar="true"
         android:scrollingCache="false"
-        android:animationCache="false">
+        android:smoothScrollbar="true"/>
 
-    </ListView>
+
+    <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/adView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        ads:adSize="BANNER"
+        ads:adUnitId="ca-app-pub-3940256099942544/6300978111" />
 
     <ProgressBar
         android:id="@+id/list_progress"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="fill" />
-
-</LinearLayout>
+        android:layout_centerInParent="true" />
+</RelativeLayout>
 
 

@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.android.vyke.worldcountries">
+
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -14,37 +15,57 @@
         android:roundIcon="@mipmap/ic_launcher_round_red"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <activity android:name="com.android.vyke.worldcountries.MainActivity">
-        <intent-filter>
-
-            <action android:name="android.intent.action.MAIN" />
-            <category android:name="android.intent.category.LAUNCHER" />
-            <action android:name="android.intent.action.SEARCH" />
-        </intent-filter>
-
+        <activity android:name=".MainActivity">
             <intent-filter>
-            <category android:name="android.intent.category.DEFAULT" />
-            <action android:name="android.intent.action.VIEW" />
-            <category android:name="android.intent.category.BROWSABLE" />
+                <action android:name="android.intent.action.MAIN" />
 
-        </intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.BROWSABLE" />
+            </intent-filter>
 
         </activity>
 
         <meta-data
             android:name="my.app.namespace.utils.GlideConfiguration"
             android:value="GlideModule" />
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
 
-        <activity android:name="com.android.vyke.worldcountries.WikiWeb"
-            android:parentActivityName="com.android.vyke.worldcountries.MainActivity">
-
+        <activity
+            android:name=".WikiWeb"
+            android:parentActivityName=".MainActivity">
             <intent-filter>
-                <action android:name="android.intent.action.WEB_SEARCH"/>
-                <category android:name="android.intent.category.APP_BROWSER"/>
+                <action android:name="android.intent.action.WEB_SEARCH" />
+
+                <category android:name="android.intent.category.APP_BROWSER" />
             </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".map.MapActivity"
+            android:parentActivityName=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.WEB_SEARCH" />
+
+                <category android:name="android.intent.category.APP_BROWSER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".about.About"
+            android:parentActivityName=".MainActivity">
 
         </activity>
+
     </application>
 
 </manifest>

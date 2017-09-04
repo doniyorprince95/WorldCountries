@@ -1,4 +1,21 @@
 <resources>
     <string name="app_name">World Countries</string>
+    <string name="App_Ad_Id">ca-app-pub-5560188191356737~3490482984</string>
+    <string name="Banner_Ad_Unit_Id">ca-app-pub-5560188191356737/3732179659 </string>
+    <string name="native_name">Native Name: </string>
+    <string name="area">Area km<sup><small> 2 </small></sup>: </string>
+    <string name="subregion">Subregion: </string>
+    <string name="alpha3code">Alpha 3 Code: </string>
+    <string name="demonym">Demonym: </string>
+    <string name="population">Population: </string>
+    <string name="calling_code">Calling Code: </string>
+    <string name="language">Languages: </string>
+    <string name="timezones">Time Zones: </string>
+    <string name="currency">Currency: </string>
+    <string name="borders">Neighbours: </string>
+    <string name="about">About</string>
+    <string name="search">Search</string>
+    <string name="refresh">Refresh</string>
 
+   
 </resources>

@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/windowsBackground"
     android:orientation="vertical"
+
     tools:context="com.android.vyke.worldcountries.WikiWeb">
 
     <WebView

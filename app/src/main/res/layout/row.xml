@@ -6,45 +6,81 @@
     android:layout_marginBottom="10dp"
     android:background="?android:selectableItemBackground"
     android:divider="#ff3d00"
+    android:dividerPadding="5dp"
     android:elevation="28dp"
     android:fadingEdge="vertical"
     android:orientation="vertical"
 
+    android:showDividers="end"
     tools:context="com.android.vyke.worldcountries.MainActivity">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-         >
-        <FrameLayout
-            android:layout_width="match_parent"
+        android:elevation="4dp"
+        android:fadingEdgeLength="8dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
+            android:layout_alignParentStart="true"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:textColor="@android:color/black" />
+
+            <TextView
+                android:id="@+id/date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:textColor="@android:color/black" />
+
+            <TextView
+                android:id="@+id/day"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:textColor="@android:color/black" />
+        </LinearLayout>
 
 
-
-            >
             <android.support.v7.widget.AppCompatImageView
                 android:id="@+id/imgIcon"
                 android:layout_width="140dp"
                 android:layout_height="80dp"
-                android:layout_gravity="center_horizontal"
+                android:layout_centerInParent="true"
                 android:layout_marginBottom="5dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="5dp" />
 
-                />
+
+        <ImageView
+            android:id="@+id/map_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="end"
+            android:layout_margin="10dp"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:src="@drawable/ic_world_location" />
             <ProgressBar
                 android:id="@+id/progress"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
                 android:layout_gravity="center" />
-        </FrameLayout>
+    </RelativeLayout>
 
         <LinearLayout
 
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_gravity="fill_horizontal"
 
             android:orientation="vertical"
@@ -80,7 +116,7 @@
 
                 android:textSize="20sp" />
         </LinearLayout>
-    </LinearLayout>
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -90,41 +126,31 @@
         android:background="@color/colorAccent" />
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:baselineAligned="false"
-        android:orientation="horizontal">
-
-        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="0.5"
+        android:layout_height="wrap_content"
             android:orientation="vertical"
             android:paddingBottom="5dp"
             android:paddingStart="8dp"
             android:paddingTop="10dp">
-
-
             <TextView
                 android:id="@+id/nativename"
-                android:layout_width="wrap_content"
+
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/primaryTextColor"
                 android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/demomyn"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
                 android:textColor="@color/primaryTextColor"
                 android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/subregion"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
                 android:textColor="@color/primaryTextColor"
                 android:textSize="18sp" />
 
@@ -136,13 +162,11 @@
                      android:textColor="@color/text_color"
                      android:textSize="18dp" />
                      -->
-        </LinearLayout>
+    </LinearLayout>
 
-        <LinearLayout
+    <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="0.5"
-
+        android:layout_height="wrap_content"
             android:orientation="vertical"
             android:paddingBottom="5dp"
             android:paddingStart="5dp"
@@ -150,7 +174,7 @@
 
             <TextView
                 android:id="@+id/area"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
 
                 android:textColor="@color/primaryTextColor"
@@ -158,7 +182,7 @@
 
             <TextView
                 android:id="@+id/ppln"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
 
                 android:textColor="@color/primaryTextColor"
@@ -166,7 +190,7 @@
 
            <TextView
                 android:id="@+id/alpha3code"
-                android:layout_width="wrap_content"
+               android:layout_width="match_parent"
                 android:layout_height="wrap_content"
 
                android:textColor="@color/primaryTextColor"
@@ -175,13 +199,11 @@
 
             <TextView
                 android:id="@+id/callingcode"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
 
                 android:textColor="@color/primaryTextColor"
                 android:textSize="18sp" />
-
-        </LinearLayout>
 
     </LinearLayout>
 
@@ -190,12 +212,11 @@
         android:layout_height="1dp"
         android:layout_marginEnd="26dp"
         android:layout_marginStart="24dp"
-        android:background="@color/infopost1"></LinearLayout>
+        android:background="@color/infopost1" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
         android:layout_marginBottom="10dp"
         android:orientation="vertical"
         android:paddingBottom="5dp"
@@ -204,7 +225,7 @@
 
         <TextView
             android:id="@+id/langspoke"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
 
             android:textColor="@color/primaryTextColor"
@@ -213,7 +234,7 @@
 
         <TextView
             android:id="@+id/timezones"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
 
             android:textColor="@color/primaryTextColor"
@@ -222,7 +243,7 @@
 
         <TextView
             android:id="@+id/currencies"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
 
             android:textColor="@color/primaryTextColor"
@@ -230,7 +251,7 @@
 
         <TextView
             android:id="@+id/shareborder"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
 
             android:textColor="@color/primaryTextColor"

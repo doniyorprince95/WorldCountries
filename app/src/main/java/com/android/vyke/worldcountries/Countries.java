@@ -21,7 +21,7 @@ public class Countries extends ArrayList {
     private List<String> timezones;
     private String nativeName;
     private List<Currency> currencies = new ArrayList<>();
-    private List<Languages> languages=new ArrayList<>();
+    private List<Languages> languages = new ArrayList<>();
     private List<String> Borders;
     private String flag;
 
@@ -36,7 +36,13 @@ public class Countries extends ArrayList {
     }
 
     public void setName(String name) {
-        this.name = name;
+        if (name.equals("Congo (Democratic Republic of the)")) {
+            this.name = "Democratic Republic of the Congo";
+        } else if (name.equals("Micronesia (Federated States of)")) {
+            this.name = "Federated States of Micronesia";
+        } else {
+            this.name = name;
+        }
     }
 
     public String getCapital() {
@@ -116,8 +122,8 @@ public class Countries extends ArrayList {
     }
 
     public void setFlag(String flag) {
-        this.flag=flag;
-       // this.flag = "https://www.countries-ofthe-world.com/flags-normal/flag-of-"+flag+".png";
+        this.flag = flag;
+        // this.flag = "https://www.countries-ofthe-world.com/flags-normal/flag-of-"+flag+".png";
     }
 
     public List<Currency> getCurrencies() {
@@ -154,7 +160,6 @@ public class Countries extends ArrayList {
     }
 
 
-
     public List<String> getBorders() {
         return Borders;
     }
@@ -163,18 +168,22 @@ public class Countries extends ArrayList {
         Borders = borders;
     }
 
-    public  static class Currency{
+    public static class Currency {
         private String currencyName;
         private String symbol;
         private String currencyCode;
 
         @Override
         public String toString() {
-            return  currencyName +" "+ symbol+",  " ;
+            return currencyName + " " + symbol + ",  ";
         }
 
         public String getCurrencyName() {
             return currencyName;
+        }
+
+        public void setCurrencyName(String currencyName) {
+            this.currencyName = currencyName;
         }
 
         public String getSymbol() {
@@ -185,9 +194,6 @@ public class Countries extends ArrayList {
             this.symbol = symbol;
         }
 
-        public void setCurrencyName(String currencyName) {
-            this.currencyName = currencyName;
-        }
         public String getCurrencyCode() {
             return currencyCode;
         }
@@ -197,16 +203,21 @@ public class Countries extends ArrayList {
         }
     }
 
-    public static class Languages{
+    public static class Languages {
         private String name;
         private String iso639_1;
 
         @Override
-        public  String toString(){
-            return name+"  ";
+        public String toString() {
+            return name + "  ";
         }
+
         public String getName() {
             return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
         }
 
         public String getIso639_1() {
@@ -215,10 +226,6 @@ public class Countries extends ArrayList {
 
         public void setIso639_1(String iso639_1) {
             this.iso639_1 = iso639_1;
-        }
-
-        public void setName(String name) {
-            this.name = name;
         }
     }
 
