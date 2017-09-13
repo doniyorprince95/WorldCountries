@@ -12,7 +12,7 @@
     android:orientation="vertical"
 
     android:showDividers="end"
-    tools:context="com.android.vyke.worldcountries.MainActivity">
+    tools:context="com.vyke.worldcountries.MainActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"

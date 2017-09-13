@@ -1,4 +1,4 @@
-package com.android.vyke.worldcountries;
+package com.vyke.worldcountries;
 
 import android.app.SearchManager;
 import android.app.SearchableInfo;
@@ -12,20 +12,17 @@ import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.vyke.worldcountries.about.About;
+import com.android.vyke.worldcountries.R;
+
+import com.vyke.worldcountries.about.About;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
@@ -84,9 +81,10 @@ public class MainActivity extends AppCompatActivity {
                 //   AdRequest adRequest = new AdRequest.Builder().addTestDevice("860C5A531681CA9A3CA94D8936AC515F").build();
                 AdView mAdView = (AdView) findViewById(R.id.adView);
                 mAdView.setVisibility(View.INVISIBLE);
-                AdRequest adRequest = new AdRequest.Builder().addTestDevice(AdRequest.DEVICE_ID_EMULATOR).build();
-                mAdView.loadAd(adRequest);
-                mAdView.setVisibility(View.VISIBLE);
+              //  AdRequest adRequest = new AdRequest.Builder().addTestDevice(AdRequest.DEVICE_ID_EMULATOR).build();
+               AdRequest adRequest = new AdRequest.Builder().build();
+               mAdView.loadAd(adRequest);
+               mAdView.setVisibility(View.VISIBLE);
             } else {
                 Toast.makeText(MainActivity.this, " Oops! Your are off the Internet", Toast.LENGTH_LONG).show();
                 progressBar.setVisibility(View.GONE);
@@ -130,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
 
         SearchView searchView = (SearchView) MenuItemCompat.getActionView(menu.findItem(R.id.searchbtn));
         searchView.setSearchableInfo(searchableInfo);
-
+        searchView.setMaxWidth( Integer.MAX_VALUE );
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -188,7 +186,7 @@ public class MainActivity extends AppCompatActivity {
                     finish();
                 }
                 return true;
-            case R.id.about:
+           case R.id.about:
                 Intent intent = new Intent(this, About.class);
                 startActivity(intent);
                 return true;

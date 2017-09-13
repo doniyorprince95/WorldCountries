@@ -15,20 +15,14 @@
         android:roundIcon="@mipmap/ic_launcher_round_red"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name="com.vyke.worldcountries.MainActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-
-                <action android:name="android.intent.action.SEARCH" />
-            </intent-filter>
-            <intent-filter>
-                <category android:name="android.intent.category.DEFAULT" />
-
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.BROWSABLE" />
+                  <action android:name="android.intent.action.MAIN" />
+                  <action android:name="android.intent.action.SEARCH" />
+                  <action android:name="android.intent.action.VIEW" />
+                  <category android:name="android.intent.category.LAUNCHER" />
+                  <category android:name="android.intent.category.DEFAULT" />
+                  <category android:name="android.intent.category.BROWSABLE" />
             </intent-filter>
 
         </activity>
@@ -41,8 +35,8 @@
             android:value="@integer/google_play_services_version" />
 
         <activity
-            android:name=".WikiWeb"
-            android:parentActivityName=".MainActivity">
+            android:name="com.vyke.worldcountries.WikiWeb"
+            android:parentActivityName="com.vyke.worldcountries.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.WEB_SEARCH" />
 
@@ -51,8 +45,8 @@
         </activity>
 
         <activity
-            android:name=".map.MapActivity"
-            android:parentActivityName=".MainActivity">
+            android:name="com.vyke.worldcountries.map.MapActivity"
+            android:parentActivityName="com.vyke.worldcountries.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.WEB_SEARCH" />
 
@@ -61,8 +55,8 @@
         </activity>
 
         <activity
-            android:name=".about.About"
-            android:parentActivityName=".MainActivity">
+            android:name="com.vyke.worldcountries.about.About"
+            android:parentActivityName="com.vyke.worldcountries.MainActivity">
 
         </activity>
 

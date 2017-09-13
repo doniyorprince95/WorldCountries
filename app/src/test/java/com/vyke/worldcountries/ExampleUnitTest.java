@@ -1,4 +1,4 @@
-package com.android.vyke.worldcountries;
+package com.vyke.worldcountries;
 
 import org.junit.Test;
 

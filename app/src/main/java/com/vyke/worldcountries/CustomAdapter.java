@@ -1,4 +1,4 @@
-package com.android.vyke.worldcountries;
+package com.vyke.worldcountries;
 
 
 import android.content.Context;
@@ -16,8 +16,13 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.vyke.worldcountries.map.MapActivity;
-import com.android.vyke.worldcountries.time.LocalTime;
+import com.vyke.worldcountries.GlideApp;
+
+
+import com.vyke.worldcountries.map.MapActivity;
+import com.vyke.worldcountries.time.LocalTime;
+
+import com.android.vyke.worldcountries.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -84,7 +89,7 @@ public class CustomAdapter extends ArrayAdapter<Countries> {
         holder.countryCapital.setText(setPosition.getCapital());
         holder.countryRegion.setText(setPosition.getRegion().trim());
         holder.countrySubregion.setText("Subregion: " + setPosition.getSubregion());
-        holder.countryArea.setText("Area: " + setPosition.getArea());
+        holder.countryArea.setText("Area: " + setPosition.getArea()+" km sq.");
         holder.countryPopulation.setText("Population: " + setPosition.getPopulation());
 
 
@@ -121,7 +126,7 @@ public class CustomAdapter extends ArrayAdapter<Countries> {
                 String Mname = Clist.get(position).getName();
                 Intent intent = new Intent(getContext(), MapActivity.class);
                 intent.putExtra("Mname", Mname);
-                intent.setPackage("com.android.vyke.worldcountries.map");
+                intent.setPackage("com.vyke.worldcountries.map");
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 getContext().startActivity(intent);
             }
@@ -135,7 +140,7 @@ public class CustomAdapter extends ArrayAdapter<Countries> {
                     if (Cname != null) {
                         Intent intent = new Intent(getContext(), WikiWeb.class);
                         intent.putExtra("Cname", Cname);
-                        intent.setPackage("com.android.vyke.worldcountries.map");
+                        intent.setPackage("com.vyke.worldcountries.map");
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         getContext().startActivity(intent);
                     } else {

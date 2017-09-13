@@ -7,7 +7,7 @@
     android:background="@color/windowsBackground"
     android:orientation="vertical"
 
-    tools:context="com.android.vyke.worldcountries.WikiWeb">
+    tools:context="com.vyke.worldcountries.WikiWeb">
 
     <WebView
         android:id="@+id/wikiweb"

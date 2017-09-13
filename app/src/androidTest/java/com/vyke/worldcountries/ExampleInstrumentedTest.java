@@ -1,4 +1,4 @@
-package com.android.vyke.worldcountries;
+package com.vyke.worldcountries;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

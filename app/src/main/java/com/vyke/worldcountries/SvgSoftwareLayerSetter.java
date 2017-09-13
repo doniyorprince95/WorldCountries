@@ -1,4 +1,4 @@
-package com.android.vyke.worldcountries;
+package com.vyke.worldcountries;
 
 /**
  * Created by Raider on 12-08-2017.

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:name="com.android.vyke.worldcountries.about.About"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.vyke.worldcountries.MainActivity">
+    <TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/version"
+    android:layout_gravity="center_horizontal"
+    android:textSize="20sp"
+    android:layout_marginTop="20dp"
+    android:layout_marginBottom="10dp"
+    android:textColor="@color/primaryTextColor"
+    tools:text="About the App and Version the App"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:layout_margin="10dp"
+        android:textColor="@android:color/secondary_text_light"
+        android:id="@+id/feature"
+        android:textAlignment="textStart"
+        android:padding="5dp"
+        android:textStyle="normal"
+        tools:text="Features of the App"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:id="@+id/resources"
+        android:textColor="@android:color/secondary_text_light"
+        android:textAlignment="textStart"
+        android:layout_margin="10dp"
+        tools:text="Resources used for the App"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:id="@+id/disclaimer"
+        android:textColor="@android:color/secondary_text_light"
+        android:textAlignment="textStart"
+        android:textStyle="italic"
+        android:layout_margin="10dp"
+        tools:text="Disclaimer"/>
+</LinearLayout>

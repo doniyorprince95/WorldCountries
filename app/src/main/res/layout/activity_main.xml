@@ -7,7 +7,7 @@
         android:layout_height="match_parent"
 
     android:background="@android:color/white"
-    tools:context="com.android.vyke.worldcountries.MainActivity">
+    tools:context="com.vyke.worldcountries.MainActivity">
     <ListView
         android:id="@+id/main_list"
         android:layout_width="match_parent"
@@ -32,7 +32,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         ads:adSize="BANNER"
-        ads:adUnitId="ca-app-pub-3940256099942544/6300978111" />
+        ads:adUnitId="@string/Banner_Ad_Unit_Id" />
 
     <ProgressBar
         android:id="@+id/list_progress"
