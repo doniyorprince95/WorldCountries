@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
+
     <application
         android:allowBackup="true"
         android:fullBackupContent="true"
@@ -14,8 +15,12 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round_red"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name="com.vyke.worldcountries.MainActivity">
+        android:theme="@style/AppTheme"
+
+        >
+        <activity
+            android:name="com.vyke.worldcountries.MainActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize">
             <intent-filter>
                   <action android:name="android.intent.action.MAIN" />
                   <action android:name="android.intent.action.SEARCH" />
