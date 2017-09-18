@@ -1,29 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
 
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
 
     android:background="@android:color/white"
     tools:context="com.vyke.worldcountries.MainActivity">
-    <ListView
-        android:id="@+id/main_list"
+    <!--
+      <ListView
+          android:id="@+id/main_list"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_margin="4dp"
+          android:animationCache="false"
+          android:background="@android:color/white"
+          android:descendantFocusability="beforeDescendants"
+          android:divider="@color/dividercolor"
+          android:dividerHeight="5dp"
+          android:focusable="true"
+          android:footerDividersEnabled="true"
+          android:scrollbars="vertical"
+          android:scrollingCache="false"
+          android:smoothScrollbar="true"/>
+  -->
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/my_recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="4dp"
-        android:animationCache="false"
+        android:layout_height="match_parent"
         android:background="@android:color/white"
-        android:descendantFocusability="beforeDescendants"
-        android:divider="@color/dividercolor"
-        android:dividerHeight="5dp"
-        android:focusable="true"
-        android:footerDividersEnabled="true"
+        android:elevation="10dp"
+        android:fadingEdgeLength="8dp"
+        android:hapticFeedbackEnabled="true"
+        android:outlineProvider="bounds"
         android:scrollbars="vertical"
-        android:scrollingCache="false"
-        android:smoothScrollbar="true"/>
 
+        >
+
+    </android.support.v7.widget.RecyclerView>
 
     <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
         android:id="@+id/adView"

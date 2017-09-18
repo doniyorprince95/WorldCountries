@@ -4,16 +4,24 @@ import android.app.SearchManager;
 import android.app.SearchableInfo;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Canvas;
+import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -45,10 +53,14 @@ public class MainActivity extends AppCompatActivity {
 
     public static final double APP_VER = 1.0;
     private final String exeUrlAll = "https://restcountries.eu/rest/v2/all";
-    private ListView listView;
+    //  private ListView listView;
     private ProgressBar progressBar;
     private List<Countries> CountriesList = new ArrayList<>();
     private CustomAdapter adapter;
+    private RecyclerView mRecyclerView;
+    private RecyclerView.Adapter mAdapter;
+    private LinearLayoutManager mLayoutManager;
+
 
     public boolean isConnected() {
         ConnectivityManager getNetworkStatus = (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -70,8 +82,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         isConnected();
 
-        listView = (ListView) findViewById(R.id.main_list);
+        //   listView = (ListView) findViewById(R.id.main_list);
+        mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
         progressBar = (ProgressBar) findViewById(R.id.list_progress);
+        mLayoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(mLayoutManager);
 
         // new GetInfo().execute("https://restcountries.eu/rest/v2/name/india?fullText=true");
 
@@ -79,12 +94,12 @@ public class MainActivity extends AppCompatActivity {
             if (isConnected()) {
                 new GetInfo().execute(exeUrlAll);
                 //   AdRequest adRequest = new AdRequest.Builder().addTestDevice("860C5A531681CA9A3CA94D8936AC515F").build();
-                AdView mAdView = (AdView) findViewById(R.id.adView);
-                mAdView.setVisibility(View.INVISIBLE);
+                //      AdView mAdView = (AdView) findViewById(R.id.adView);
+                //         mAdView.setVisibility(View.INVISIBLE);
               //  AdRequest adRequest = new AdRequest.Builder().addTestDevice(AdRequest.DEVICE_ID_EMULATOR).build();
-               AdRequest adRequest = new AdRequest.Builder().build();
-               mAdView.loadAd(adRequest);
-               mAdView.setVisibility(View.VISIBLE);
+                //    AdRequest adRequest = new AdRequest.Builder().build();
+                //       mAdView.loadAd(adRequest);
+                //        mAdView.setVisibility(View.VISIBLE);
             } else {
                 Toast.makeText(MainActivity.this, " Oops! Your are off the Internet", Toast.LENGTH_LONG).show();
                 progressBar.setVisibility(View.GONE);
@@ -93,12 +108,18 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+     
+        RecyclerView.ItemDecoration dividerDecoration = new DividerItemDecoration(mRecyclerView.getContext(),
+                mLayoutManager.getOrientation());
+        mRecyclerView.addItemDecoration(dividerDecoration);
+
+        /*
+        mRecyclerView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
                 String sname;
                 try {
-                    sname = adapter.getItem(position).getName();
+                    sname = mAdapter.getName();
 
                     if (sname != null) {
                         Intent intent = new Intent(MainActivity.this, WikiWeb.class);
@@ -110,10 +131,20 @@ public class MainActivity extends AppCompatActivity {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+                return false;
             }
 
+            @Override
+            public void onTouchEvent(RecyclerView rv, MotionEvent e) {
 
+            }
+
+            @Override
+            public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+
+            }
         });
+        */
     }
 
 
@@ -141,26 +172,7 @@ public class MainActivity extends AppCompatActivity {
 
                     //  adapter.setFilter(newText);
                     CustomAdapter newAdapter = adapter.setFilter(newText);
-                    listView.setAdapter(newAdapter);
-             /*       listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                            try {
-                                String sname = newAdapter.getItem(position).getName();
-                                if (sname != null) {
-                                    Intent intent = new Intent(MainActivity.this, WikiWeb.class);
-                                    intent.putExtra("Cname", sname);
-                                    startActivity(intent);
-                                } else {
-                                    Toast.makeText(MainActivity.this, "Cannot Get the Name", Toast.LENGTH_SHORT).show();
-                                }
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    });
-*/
+                    mRecyclerView.setAdapter(newAdapter);
                     return true;
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -174,24 +186,25 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
+        super.onOptionsItemSelected(item);
         switch (item.getItemId()) {
             case R.id.refresh:
                 if (isConnected()) {
                     new GetInfo().execute(exeUrlAll);
-
 
                 } else {
                     Toast.makeText(MainActivity.this, "Could not Refresh", Toast.LENGTH_SHORT).show();
                     finish();
                 }
                 return true;
-           case R.id.about:
+            case R.id.about:
                 Intent intent = new Intent(this, About.class);
                 startActivity(intent);
                 return true;
         }
+
         return false;
+
         // return super.onOptionsItemSelected(item);
     }
 
@@ -206,12 +219,14 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        listView.setAdapter(adapter);
+        mRecyclerView.setAdapter(adapter);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
+        mRecyclerView.stopScroll();
+
     }
 
     private class GetInfo extends AsyncTask<String, String, List<Countries>> {
@@ -344,18 +359,18 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            listView.setVisibility(View.GONE);
+            mRecyclerView.setVisibility(View.GONE);
             progressBar.setVisibility(View.VISIBLE);
         }
 
         @Override
         public void onPostExecute(List<Countries> CL) {
             super.onPostExecute(CL);
-            adapter = new CustomAdapter(getApplicationContext(), R.layout.row, CL);
+            adapter = new CustomAdapter(CL);
             try {
-                listView.setAdapter(adapter);
+                mRecyclerView.setAdapter(adapter);
                 progressBar.setVisibility(View.GONE);
-                listView.setVisibility(View.VISIBLE);
+                mRecyclerView.setVisibility(View.VISIBLE);
             } catch (Exception e) {
                 e.printStackTrace();
             }

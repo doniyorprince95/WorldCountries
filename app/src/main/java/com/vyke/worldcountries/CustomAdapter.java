@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.drawable.PictureDrawable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,61 +31,37 @@ import java.util.List;
 import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
 
 
-public class CustomAdapter extends ArrayAdapter<Countries> {
+public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder> {
     private List<Countries> Clist = new ArrayList<>();
     private ImageView imgIcon;
 
 
-    public CustomAdapter(Context context, int resource, List<Countries> objects) {
-        super(context, resource, objects);
+    public CustomAdapter(List<Countries> objects) {
         this.Clist = objects;
 
     }
 
+    @Override
+    public int getItemCount() {
+        return Clist.size();
+    }
 
     @Override
-    public View getView(final int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        View listview = convertView;
+    public CustomAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View listview = (View) LayoutInflater.from(parent.getContext()).inflate(R.layout.row, parent, false);
+        return new ViewHolder(listview);
+    }
 
-        ViewHolder holder;
-        Countries setPosition = Clist.get(position);
+    @Override
+    public void onBindViewHolder(final ViewHolder holder, int position) {
 
-        if (listview == null) {
-            holder = new ViewHolder();
-            listview = LayoutInflater.from(getContext()).inflate(R.layout.row, parent, false);
-            listview.setTag(holder);
-        } else {
-            holder = (ViewHolder) listview.getTag();
-
-        }
+        final Countries setPosition = Clist.get(holder.getAdapterPosition());
 
         // String flagUrl ="https://www.countries-ofthe-world.com/flags-normal/flag-of-"+ Cname+".png";
 
-        holder.countryName = (TextView) listview.findViewById(R.id.countryname);
-        imgIcon = (ImageView) listview.findViewById(R.id.imgIcon);
-        holder.mapButton = (ImageView) listview.findViewById(R.id.map_btn);
-        holder.countryCapital = (TextView) listview.findViewById(R.id.countrycapital);
-        holder.countryRegion = (TextView) listview.findViewById(R.id.region);
-        holder.countrySubregion = (TextView) listview.findViewById(R.id.subregion);
-        holder.countryArea = (TextView) listview.findViewById(R.id.area);
-        holder.countryPopulation = (TextView) listview.findViewById(R.id.ppln);
-        holder.countryTimeZone = (TextView) listview.findViewById(R.id.timezones);
-        holder.countryCallingCode = (TextView) listview.findViewById(R.id.callingcode);
-        holder.countryLanguages = (TextView) listview.findViewById(R.id.langspoke);
-        holder.countryBorders = (TextView) listview.findViewById(R.id.shareborder);
-        holder.countryCurrency = (TextView) listview.findViewById(R.id.currencies);
-        holder.countryDemonym = (TextView) listview.findViewById(R.id.demomyn);
-        //   holder.countryAlpha2 = (TextView) listview.findViewById(R.id.alpha2code);
-        holder.countryAlpha3 = (TextView) listview.findViewById(R.id.alpha3code);
-        holder.countryNativeName = (TextView) listview.findViewById(R.id.nativename);
-        holder.textClockTime = (TextView) listview.findViewById(R.id.time);
-        holder.date = (TextView) listview.findViewById(R.id.date);
-        holder.day = (TextView) listview.findViewById(R.id.day);
-
-
         String Cname = setPosition.getName();
-        ProgressBar progressBar = (ProgressBar) listview.findViewById(R.id.progress);
-        progressBar.setVisibility(View.VISIBLE);
+
+        holder.progressBar.setVisibility(View.VISIBLE);
         holder.countryName.setText(Cname);
         holder.countryCapital.setText(setPosition.getCapital());
         holder.countryRegion.setText(setPosition.getRegion().trim());
@@ -120,37 +97,66 @@ public class CustomAdapter extends ArrayAdapter<Countries> {
         holder.countryNativeName.setText("Native Name: " + setPosition.getNativeName());
         String flag = setPosition.getFlag();
 
+
+        // On click the list map Button Map Activity Start
         holder.mapButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String Mname = Clist.get(position).getName();
-                Intent intent = new Intent(getContext(), MapActivity.class);
+                String Mname = Clist.get(holder.getAdapterPosition()).getName();
+                Intent intent = new Intent(holder.itemView.getContext(), MapActivity.class);
                 intent.putExtra("Mname", Mname);
                 intent.setPackage("com.vyke.worldcountries.map");
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                getContext().startActivity(intent);
+                holder.itemView.getContext().startActivity(intent);
             }
         });
 
-        listview.setOnClickListener(new View.OnClickListener() {
+        //on click Wikiweb Activity start
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 try {
-                    String Cname = Clist.get(position).getName();
+                    String Cname = Clist.get(holder.getAdapterPosition()).getName();
                     if (Cname != null) {
-                        Intent intent = new Intent(getContext(), WikiWeb.class);
+                        Intent intent = new Intent(holder.itemView.getContext(), WikiWeb.class);
                         intent.putExtra("Cname", Cname);
-                        intent.setPackage("com.vyke.worldcountries.map");
+                        //  intent.setPackage("com.vyke.worldcountries.map");
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        getContext().startActivity(intent);
+                        holder.itemView.getContext().startActivity(intent);
                     } else {
-                        Toast.makeText(getContext(), "Cannot Get the Name", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(holder.itemView.getContext(), "Cannot Get the Name", Toast.LENGTH_SHORT).show();
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
         });
+
+
+        /*
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String sname;
+                try {
+                    sname = setPosition.getName();
+
+                    if (sname != null) {
+                        Intent intent = new Intent(holder.itemView.getContext(), WikiWeb.class);
+                        intent.putExtra("Cname", sname);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        holder.itemView.getContext().startActivity(intent);
+                    } else {
+                        Toast.makeText(holder.itemView.getContext(), "Cannot Get the Name", Toast.LENGTH_SHORT).show();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+*/
+
+
 
         LocalTime localTime = new LocalTime();
 
@@ -231,20 +237,20 @@ public class CustomAdapter extends ArrayAdapter<Countries> {
         //    GetIcon getIcon=new GetIcon();
         //   getIcon.execute(flag);
 
-        GlideApp.with(listview)
+        GlideApp.with(holder.itemView)
                 .as(PictureDrawable.class)
                 .load(flag)
                 .placeholder(R.mipmap.ic_world_map)
                 .error(R.mipmap.ic_launcher_round_red)
                 .transition(withCrossFade())
                 .listener(new SvgSoftwareLayerSetter())
-                .into(imgIcon);
+                .into(holder.imgIcon);
 
 
         // GlideApp.with(listview).load().error(R.mipmap.ic_launcher_round_red).into(imgIcon);
         Log.e("FLag", "---Flag SVG Recieved " + Cname);
-        progressBar.setVisibility(View.GONE);
-        return listview;
+        holder.progressBar.setVisibility(View.GONE);
+
     }
 
 
@@ -260,11 +266,11 @@ public class CustomAdapter extends ArrayAdapter<Countries> {
                     if (name.contains(text)) {
                         newList.add(c);
                     }
-                    modifiedAdapter = new CustomAdapter(getContext(), R.layout.row, newList);
+                    modifiedAdapter = new CustomAdapter(newList);
 
                 }
             } else if (text == null) {
-                modifiedAdapter = new CustomAdapter(getContext(), R.layout.row, Clist);
+                modifiedAdapter = new CustomAdapter(Clist);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -318,28 +324,40 @@ public class CustomAdapter extends ArrayAdapter<Countries> {
 
         }
     */
-    private class ViewHolder {
-
-        TextView countryName;
-        TextView countryCapital;
-        TextView countryRegion;
-        TextView countrySubregion;
-        TextView countryArea;
-        TextView countryPopulation;
-        TextView countryTimeZone;
-        TextView countryCallingCode;
-        TextView countryLanguages;
-        TextView countryBorders;
-        TextView countryCurrency;
-        TextView countryDemonym;
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        TextView countryName, countryCapital, countryRegion, countrySubregion;
+        TextView countryArea, countryPopulation, countryTimeZone, countryCallingCode, countryLanguages, countryBorders, countryCurrency, countryDemonym;
         //   TextView countryAlpha2;
-        TextView countryAlpha3;
-        TextView countryNativeName;
-        ImageView mapButton;
-        TextView textClockTime;
-        TextView date;
-        TextView day;
+        TextView countryAlpha3, countryNativeName;
+        ImageView imgIcon, mapButton;
+        TextView textClockTime, date, day;
+        ProgressBar progressBar;
 
+        public ViewHolder(View listview) {
+            super(listview);
+            progressBar = (ProgressBar) listview.findViewById(R.id.progress);
+            countryName = (TextView) listview.findViewById(R.id.countryname);
+            imgIcon = (ImageView) listview.findViewById(R.id.imgIcon);
+            mapButton = (ImageView) listview.findViewById(R.id.map_btn);
+            countryCapital = (TextView) listview.findViewById(R.id.countrycapital);
+            countryRegion = (TextView) listview.findViewById(R.id.region);
+            countrySubregion = (TextView) listview.findViewById(R.id.subregion);
+            countryArea = (TextView) listview.findViewById(R.id.area);
+            countryPopulation = (TextView) listview.findViewById(R.id.ppln);
+            countryTimeZone = (TextView) listview.findViewById(R.id.timezones);
+            countryCallingCode = (TextView) listview.findViewById(R.id.callingcode);
+            countryLanguages = (TextView) listview.findViewById(R.id.langspoke);
+            countryBorders = (TextView) listview.findViewById(R.id.shareborder);
+            countryCurrency = (TextView) listview.findViewById(R.id.currencies);
+            countryDemonym = (TextView) listview.findViewById(R.id.demomyn);
+            //   holder.countryAlpha2 = (TextView) listview.findViewById(R.id.alpha2code);
+            countryAlpha3 = (TextView) listview.findViewById(R.id.alpha3code);
+            countryNativeName = (TextView) listview.findViewById(R.id.nativename);
+            textClockTime = (TextView) listview.findViewById(R.id.time);
+            date = (TextView) listview.findViewById(R.id.date);
+            day = (TextView) listview.findViewById(R.id.day);
+
+        }
 
     }
 }
