@@ -80,6 +80,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         mRecyclerView.setAdapter(adapter);
 
         /* Show the Ads*/
+/* **Warning** */
+/* If You are testing your App with Google Ad Mob * Use adTestDevice(.....).build(); */
 
         //   AdRequest adRequest = new AdRequest.Builder().addTestDevice("860C5A531681CA9A3CA94D8936AC515F").build();
         AdView mAdView = (AdView) findViewById(R.id.adView);
