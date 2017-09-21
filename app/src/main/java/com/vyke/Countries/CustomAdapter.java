@@ -1,4 +1,4 @@
-package com.vyke.worldcountries;
+package com.vyke.Countries;
 
 
 import android.content.Intent;
@@ -14,8 +14,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.vyke.worldcountries.R;
-import com.vyke.worldcountries.map.MapActivity;
-import com.vyke.worldcountries.time.LocalTime;
+import com.vyke.Countries.map.MapActivity;
+import com.vyke.Countries.time.LocalTime;
 
 import java.util.ArrayList;
 import java.util.List;

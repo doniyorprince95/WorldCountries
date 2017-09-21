@@ -1,4 +1,4 @@
-package com.vyke.worldcountries;
+package com.vyke.Countries;
 
 import java.util.ArrayList;
 import java.util.List;

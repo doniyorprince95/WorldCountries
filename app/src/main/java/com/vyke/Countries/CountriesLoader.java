@@ -1,4 +1,4 @@
-package com.vyke.worldcountries;
+package com.vyke.Countries;
 
 import android.content.Context;
 import android.support.v4.content.AsyncTaskLoader;

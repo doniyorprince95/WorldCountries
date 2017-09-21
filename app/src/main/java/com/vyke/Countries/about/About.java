@@ -1,11 +1,11 @@
-package com.vyke.worldcountries.about;
+package com.vyke.Countries.about;
 import android.os.Bundle;
 
 import android.support.v7.app.AppCompatActivity;
 
 import android.widget.TextView;
 
-import com.vyke.worldcountries.MainActivity;
+import com.vyke.Countries.MainActivity;
 import com.android.vyke.worldcountries.R;
 
 
@@ -23,7 +23,7 @@ public class About extends AppCompatActivity {
         TextView resources=(TextView)findViewById(R.id.resources);
         TextView disclaimer=(TextView)findViewById(R.id.disclaimer);
 
-        String ver= "World Countries"+"  "+ MainActivity.APP_VER;
+        String ver = "Paises" + "  " + MainActivity.APP_VER;
         String Feature="This app will help you find information about the countries of the world easily. The idea is to get most of the references at a single Place. \n"+
                         "There are Total "+ 250+" Countries information in this application"+"\n"+
                          "* This shows important information in List \n"+

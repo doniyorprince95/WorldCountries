@@ -1,4 +1,4 @@
-package com.vyke.worldcountries;
+package com.vyke.Countries;
 /* This Project is Created by Vipul Kumar Maurya*/
 
 import android.app.SearchManager;
@@ -25,7 +25,7 @@ import android.widget.Toast;
 import com.android.vyke.worldcountries.R;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
-import com.vyke.worldcountries.about.About;
+import com.vyke.Countries.about.About;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +33,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<Countries>> {
 
-    public static final double APP_VER = 1.1;
+    public static final double APP_VER = 3;
     private static final int COUNTRIES_LOADER_ID = 1;
     private final String exeUrlAll = "https://restcountries.eu/rest/v2/all";
     //  private ListView listView;

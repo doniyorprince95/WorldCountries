@@ -12,13 +12,14 @@ android {
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
     defaultConfig {
-        applicationId "com.vyke.worldcountries"
+        applicationId "com.vyke.countries"
         minSdkVersion 22
         targetSdkVersion 25
-        versionName '1.1'
+        versionName '3'
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled = true
         vectorDrawables.useSupportLibrary = true
+        versionCode 3
     }
     buildTypes {
         release {

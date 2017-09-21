@@ -1,4 +1,4 @@
-package com.vyke.worldcountries;
+package com.vyke.Countries;
 
 /**
  * Created by Raider on 12-08-2017.

@@ -1,4 +1,4 @@
-package com.vyke.worldcountries;
+package com.vyke.Countries;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
